@@ -26,13 +26,13 @@ jobs:
             sudo update-locale LANG=it_IT.UTF-8
       - name: Run script
         env:
-          super_secret: ${{ secrets.FTPHOST }}
-          super_secret: ${{ secrets.FTPUSER }}
-          super_secret: ${{ secrets.FTPPASSWORD }}
-          super_secret: ${{ secrets.PUSHAUTH }}
-          super_secret: ${{ secrets.PUSHID }}
-          super_secret: ${{ secrets.TELEGRAMID }}
-          super_secret: ${{ secrets.FACEBOOKTOKEN }}
-          super_secret: ${{ secrets.FACEBOOKID }}
+          FTPHOST: ${{ secrets.FTPHOST }}
+          FTPUSER: ${{ secrets.FTPUSER }}
+          FTPPASSWORD: ${{ secrets.FTPPASSWORD }}
+          PUSHAUTH: ${{ secrets.PUSHAUTH }}
+          PUSHID: ${{ secrets.PUSHID }}
+          TELEGRAMID: ${{ secrets.TELEGRAMID }}
+          FACEBOOKTOKEN: ${{ secrets.FACEBOOKTOKEN }}
+          FACEBOOKID: ${{ secrets.FACEBOOKID }}
         run: |
           python updater.py
