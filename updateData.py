@@ -1,6 +1,6 @@
 ''' Helper functions to retrieve, parse and update covid19 data released by the italian govt '''
 
-import pandas, os
+import pandas, os, io, requests
 from datetime import datetime
 from pathlib import Path
 from ftplib import FTP
@@ -21,14 +21,15 @@ def somethingChanged(nationalData):
     ''' Checks if downladed latest total is different from saved one
         If True updates saved total '''
     latestTotal = getLatestTotal(nationalData)
-    with open(currentPath + 'latestTotal.txt', 'r+') as latestTotalFile:
-        if latestTotal == int(latestTotalFile.read()): return False
-        else:
-            print(latestTotal)
-            latestTotalFile.seek(0)
-            latestTotalFile.write(str(latestTotal)) #Write new total to file
-            latestTotalFile.truncate()
-            return True
+    latestSavedTotal = requests.get('https://salvatoreandaloro.altervista.org/coronavirus/latestTotal.txt')
+    latestSavedTotal = int(latestSavedTotal.text)
+    if latestTotal == latestSavedTotal: return False
+    else:
+        print(latestTotal)
+        with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp:
+            ftpFile = io.BytesIO(str(latestTotal).encode("utf-8"))
+            ftp.storbinary(f'STOR {"coronavirus/latestTotal.txt"}', ftpFile)
+        return True
 
 def getChartDataNewCases(nationalData):
     ''' Returns formatted array for chartJS with updated new cases '''
@@ -188,7 +189,7 @@ def getProvincesData(provincesData, provincesDataYesterday, provincesData30DaysA
 
 def uploadData(data):
     ''' Creates dummy file with php header and JSON data and uploads it to remote server via FTP '''
-    with open(currentPath + 'ftpFile.json', 'w') as ftpFile:
-        ftpFile.write('<?php header("Access-Control-Allow-Origin: *");header("Content-Type: application/json");?>' + data)
-    with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp, open(currentPath+"ftpFile.json", 'rb') as ftpFile:
+    data = '<?php header("Access-Control-Allow-Origin: *");header("Content-Type: application/json");?>' + data
+    with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp:
+        ftpFile = io.BytesIO(data.encode('utf-8'))
         ftp.storbinary(f'STOR {"coronavirus/datiV6.php"}', ftpFile)
