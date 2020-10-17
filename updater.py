@@ -1,6 +1,7 @@
-import time, json, locale, sys
+import time, json, locale
 from pathlib import Path
 from datetime import datetime, timedelta
+from helpers import *
 from updateData import *
 from notifications import *
 
@@ -8,7 +9,8 @@ locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 
 nationalData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv')
 
-if somethingChanged(nationalData) or sys.argv[1] == 'force':
+force = checkForce()
+if somethingChanged(nationalData) or force:
     print('Something changed. Updating...')
     yesterday = datetime.today() - timedelta(days=1)
     yesterday = yesterday.strftime('%Y%m%d')
