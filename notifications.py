@@ -35,9 +35,9 @@ def sendPushNotification(title, message):
         'contents': {'en': message},
         'url': 'https://coronaviruslive.it'
     }
-    #req = requests.post('https://onesignal.com/api/v1/notifications', headers=header, data=json.dumps(payload), verify=False)
+    req = requests.post('https://onesignal.com/api/v1/notifications', headers=header, data=json.dumps(payload), verify=False)
     print("Push notification sent!")
-    #return req.status_code
+    return req.status_code
 
 def sendTelegramMessage(message):
     ''' Send Telegram message
@@ -48,9 +48,9 @@ def sendTelegramMessage(message):
         'text': message,
         'parse_mode': 'HTML',
     }
-    #req = requests.post('https://api.telegram.org/bot' + os.environ['TELEGRAMID'] + '/sendMessage', headers=header,data=json.dumps(payload), verify=False)
+    req = requests.post('https://api.telegram.org/bot' + os.environ['TELEGRAMID'] + '/sendMessage', headers=header,data=json.dumps(payload), verify=False)
     print("Telegram notification sent!")
-    #return req.status_code
+    return req.status_code
 
 def sendFacebookMessage(message):
     access_token = os.environ['FACEBOOKTOKEN']
@@ -59,6 +59,6 @@ def sendFacebookMessage(message):
         'access_token': access_token,
         'message': message,
     }
-    #req = requests.post('https://graph.facebook.com/' + os.environ['FACEBOOKID'] + '/feed', headers=header, data=payload, verify=False)
+    req = requests.post('https://graph.facebook.com/' + os.environ['FACEBOOKID'] + '/feed', headers=header, data=payload, verify=False)
     print("Facebook notification sent!")
-    #return req.status_code
+    return req.status_code
