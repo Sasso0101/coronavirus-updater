@@ -1,0 +1,5 @@
+env/
+__pycache__/
+lastNotification.txt
+latestTotal.txt
+ftpfile.json
