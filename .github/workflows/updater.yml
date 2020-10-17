@@ -1,8 +1,9 @@
-name: Check for updates...
+name: Checking for updates...
 on:
+  push:
   schedule:
-    # * is a special character in YAML so you have to quote this string
     - cron:  '*/5 * * * *'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,19 +11,28 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: it_IT.UTF-8
-      run: |
-          sudo locale-gen it_IT.UTF-8
-          sudo update-locale LANG=it_IT.UTF-8
-    - name: Run script
-      run: |
-        python updater.py
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: it_IT.UTF-8
+        run: |
+            sudo locale-gen it_IT.UTF-8
+            sudo update-locale LANG=it_IT.UTF-8
+      - name: Run script
+        env:
+          super_secret: ${{ secrets.FTPHOST }}
+          super_secret: ${{ secrets.FTPUSER }}
+          super_secret: ${{ secrets.FTPPASSWORD }}
+          super_secret: ${{ secrets.PUSHAUTH }}
+          super_secret: ${{ secrets.PUSHID }}
+          super_secret: ${{ secrets.TELEGRAMID }}
+          super_secret: ${{ secrets.FACEBOOKTOKEN }}
+          super_secret: ${{ secrets.FACEBOOKID }}
+        run: |
+          python updater.py
