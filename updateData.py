@@ -192,4 +192,5 @@ def uploadData(data):
     data = '<?php header("Access-Control-Allow-Origin: *");header("Content-Type: application/json");?>' + data
     with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp:
         ftpFile = io.BytesIO(data.encode('utf-8'))
-        ftp.storbinary(f'STOR {"coronavirus/datiV6.php"}', ftpFile)
+        #ftp.storbinary(f'STOR {"coronavirus/datiV6.php"}', ftpFile)
+    print("File uploaded!")

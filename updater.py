@@ -9,7 +9,7 @@ locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 
 nationalData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv')
 
-force = checkForce()
+force = isForced()
 if somethingChanged(nationalData) or force:
     print('Something changed. Updating...')
     yesterday = datetime.today() - timedelta(days=1)
@@ -42,12 +42,12 @@ if somethingChanged(nationalData) or force:
     if not notificationSentToday():
         pushTitle = "Nuovi casi coronavirus - Aggiornamento ore 17:00"
         pushMessage = "Dati aggiornati con le informazioni rilasciate dalla Protezione civile alle 17:00."
-        #sendPushNotification(pushTitle, pushMessage)
+        sendPushNotification(pushTitle, pushMessage)
 
         telegramMessage = '<b>Bollettino coronavirus - {}</b>\r\n🟧 {:n} contagi oggi ({:n} attualmente positivi)\r\n🟥 {:n} decessi ({:n} decessi totali)\r\n🟩 {:n} guariti oggi ({:n} guariti totali)\r\n⬜️ {:n} tamponi effettuati oggi ({:n} tamponi totali)\r\n\r\n{:n} in terapia intensiva || {:n} ospedalizzati\r\nVedi i casi nella tua regione su <a href=\"https://coronaviruslive.it\">coronaviruslive.it</a>'.format(now.strftime("%d/%m/%Y"), data['today']['newActiveCases'], data['today']['activeCases'], data['today']['newDeaths'], data['today']['deaths'], data['today']['newRecovered'], data['today']['recovered'], data['today']['newTests'], data['today']['tests'], data['today']['intensiveCare'], data['today']['hospitalized'])
-        #sendTelegramMessage(telegramMessage)
+        sendTelegramMessage(telegramMessage)
 
         facebookMessage = 'Bollettino coronavirus - {}\r\n🟧 {:n} contagi oggi ({:n} attualmente positivi)\r\n🟥 {:n} decessi ({:n} decessi totali)\r\n🟩 {:n} guariti oggi ({:n} guariti totali)\r\n⬜️ {:n} tamponi effettuati oggi ({:n} tamponi totali)\r\n\r\n{:n} in terapia intensiva || {:n} ospedalizzati\r\nVedi i casi nella tua regione su https://coronaviruslive.it'.format(now.strftime("%d/%m/%Y"), data['today']['newActiveCases'], data['today']['activeCases'], data['today']['newDeaths'], data['today']['deaths'], data['today']['newRecovered'], data['today']['recovered'], data['today']['newTests'], data['today']['tests'], data['today']['intensiveCare'], data['today']['hospitalized'])
-        #sendFacebookMessage(facebookMessage)
+        sendFacebookMessage(facebookMessage)
 else:
     print("Nothing new.")

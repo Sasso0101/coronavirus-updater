@@ -1,6 +1,6 @@
 import sys
 
-def checkForce():
+def isForced():
     ''' Check if the user has passed the cmd argument force '''
     if len(sys.argv) > 1:
         if sys.argv[1] == 'force':
