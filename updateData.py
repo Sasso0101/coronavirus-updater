@@ -27,7 +27,7 @@ def somethingChanged(nationalData):
     latestSavedTotal = int(latestSavedTotal.text)
     if latestTotal == latestSavedTotal: return False
     else:
-        print('Total: ' + latestTotal)
+        print('Total: ' + str(latestTotal))
         with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp:
             ftpFile = io.BytesIO(str(latestTotal).encode("utf-8"))
             ftp.storbinary(f'STOR {"coronavirus/latestTotal.txt"}', ftpFile)
