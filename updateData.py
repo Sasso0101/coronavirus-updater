@@ -4,6 +4,8 @@ import pandas, os, io, requests
 from datetime import datetime
 from pathlib import Path
 from ftplib import FTP
+from github import Github
+from pytz import timezone
 
 currentPath = str(Path(__file__).parent)+'/'
 
@@ -104,6 +106,7 @@ def getTodayData(nationalData):
         'newRecovered': nationalData[-1]['dimessi_guariti'] - nationalData[-2]['dimessi_guariti'],
         'selfIsolation': nationalData[-1]['isolamento_domiciliare'],
         'hospitalized': nationalData[-1]['totale_ospedalizzati'],
+        'diffHospitalized': nationalData[-1]['totale_ospedalizzati'] - nationalData[-2]['totale_ospedalizzati'],
         'intensiveCare': nationalData[-1]['terapia_intensiva'],
         'diffIntensiveCare': nationalData[-1]['terapia_intensiva'] - nationalData[-2]['terapia_intensiva'],
         'deaths': nationalData[-1]['deceduti'],
@@ -194,3 +197,13 @@ def uploadData(data):
         ftpFile = io.BytesIO(data.encode('utf-8'))
         ftp.storbinary(f'STOR {"coronavirus/datiV6.php"}', ftpFile)
     print("File uploaded!")
+def getLatestCommitDatetime():
+    ''' Returns latest commit datetime on andamento-nazionale-latest.csv '''
+    g = Github()
+    repo = g.get_repo("pcm-dpc/COVID-19")
+    commits = repo.get_commits(path='dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale-latest.csv')
+    if commits.totalCount:
+        utc = timezone('UTC')
+        rome = timezone('Europe/Rome')
+        localized = utc.localize(commits[0].commit.committer.date)
+        return localized.astimezone(rome)

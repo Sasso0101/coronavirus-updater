@@ -32,9 +32,10 @@ if somethingChanged(nationalData) or force:
     data['regions'] = getRegionsData(regionsData, regionsDataYesterday)
     data['provinces'] = getProvincesData(provincesData, provincesDataYesterday, provincesData30DaysAgo)
     now = datetime.now()
+    lastCommit = getLatestCommitDatetime()
     data['lastUpdated'] = {
-        'day': now.strftime("%d/%m/%Y"),
-        'time': now.strftime("%H:%M")
+        'day': lastCommit.strftime("%d/%m/%Y"),
+        'time': lastCommit.strftime("%H:%M")
     }
     data['id'] = time.time()
     uploadData(json.dumps(data))
