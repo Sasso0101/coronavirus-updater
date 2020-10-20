@@ -97,24 +97,24 @@ def getChartCumulativeCases(nationalData):
         chart[3].append(day['dimessi_guariti'])
     return chart
 
-def getTodayData(nationalData):
-    ''' Parses todays data and returns parsed python object '''
+def getDayData(nationalData, day):
+    ''' Parses requested day from now data and returns parsed python object '''
     today = {
-        'activeCases': nationalData[-1]['totale_positivi'],
-        'newActiveCases': nationalData[-1]['nuovi_positivi'],
-        'recovered': nationalData[-1]['dimessi_guariti'],
-        'newRecovered': nationalData[-1]['dimessi_guariti'] - nationalData[-2]['dimessi_guariti'],
-        'selfIsolation': nationalData[-1]['isolamento_domiciliare'],
-        'hospitalized': nationalData[-1]['totale_ospedalizzati'],
-        'diffHospitalized': nationalData[-1]['totale_ospedalizzati'] - nationalData[-2]['totale_ospedalizzati'],
-        'intensiveCare': nationalData[-1]['terapia_intensiva'],
-        'diffIntensiveCare': nationalData[-1]['terapia_intensiva'] - nationalData[-2]['terapia_intensiva'],
-        'deaths': nationalData[-1]['deceduti'],
-        'newDeaths': nationalData[-1]['deceduti'] - nationalData[-2]['deceduti'],
-        'tests': nationalData[-1]['tamponi'],
-        'newTests': nationalData[-1]['tamponi'] - nationalData[-2]['tamponi'],
-        'peopleTested': nationalData[-1]['casi_testati'],
-        'newPeopleTested': nationalData[-1]['casi_testati'] - nationalData[-2]['casi_testati'],
+        'activeCases': nationalData[-day]['totale_positivi'],
+        'newActiveCases': nationalData[-day]['nuovi_positivi'],
+        'recovered': nationalData[-day]['dimessi_guariti'],
+        'newRecovered': nationalData[-day]['dimessi_guariti'] - nationalData[-day-1]['dimessi_guariti'],
+        'selfIsolation': nationalData[-day]['isolamento_domiciliare'],
+        'hospitalized': nationalData[-day]['totale_ospedalizzati'],
+        'diffHospitalized': nationalData[-day]['totale_ospedalizzati'] - nationalData[-day-1]['totale_ospedalizzati'],
+        'intensiveCare': nationalData[-day]['terapia_intensiva'],
+        'diffIntensiveCare': nationalData[-day]['terapia_intensiva'] - nationalData[-day-1]['terapia_intensiva'],
+        'deaths': nationalData[-day]['deceduti'],
+        'newDeaths': nationalData[-day]['deceduti'] - nationalData[-day-1]['deceduti'],
+        'tests': nationalData[-day]['tamponi'],
+        'newTests': nationalData[-day]['tamponi'] - nationalData[-day-1]['tamponi'],
+        'peopleTested': nationalData[-day]['casi_testati'],
+        'newPeopleTested': nationalData[-day]['casi_testati'] - nationalData[-day-1]['casi_testati'],
     }
     return today
 
