@@ -66,7 +66,7 @@ def getChartActiveCases(nationalData):
     chart = [
         [],
         ["In terapia intensiva", "#ff1900", "#870d00"],
-        ["Ospedalizzati", "#008abc", "#005270"],
+        ["Altri ospedalizzati", "#008abc", "#005270"],
         ["Isolamento domiciliare", "#bc8500", "#8c6300"],
     ]
 
@@ -75,7 +75,7 @@ def getChartActiveCases(nationalData):
         dataDatetime = datetime.strptime(day['data'], '%Y-%m-%dT%H:%M:%S')
         chart[0].append(dataDatetime.strftime("%d/%m/%Y"))
         chart[1].append(day['terapia_intensiva'])
-        chart[2].append(day['totale_ospedalizzati'])
+        chart[2].append(day['totale_ospedalizzati'] - day['terapia_intensiva'])
         chart[3].append(day['isolamento_domiciliare'])
     return chart
 
@@ -197,6 +197,7 @@ def uploadData(data):
         ftpFile = io.BytesIO(data.encode('utf-8'))
         ftp.storbinary(f'STOR {"coronavirus/datiV6.php"}', ftpFile)
     print("File uploaded!")
+
 def getLatestCommitDatetime():
     ''' Returns latest commit datetime on andamento-nazionale-latest.csv '''
     g = Github()
