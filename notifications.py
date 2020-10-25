@@ -26,7 +26,7 @@ def sendPushNotification(title, message):
         Returns HTTP response code returned by the API '''
     header = {
         'Content-Type': 'application/json; charset=utf-8',
-        'Authorization': 'Basic ' + os.environ['FTPHOST']
+        'Authorization': 'Basic ' + os.environ['PUSHAUTH']
     }
     payload = {
         'app_id': os.environ['PUSHID'],
