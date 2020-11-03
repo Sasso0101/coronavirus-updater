@@ -2,11 +2,12 @@
 
 import pandas, os, io, requests
 from datetime import datetime
+from dotenv import load_dotenv
 from pathlib import Path
 from ftplib import FTP
 from github import Github
 from pytz import timezone
-
+load_dotenv()
 currentPath = str(Path(__file__).parent)+'/'
 
 def getData(url):

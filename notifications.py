@@ -1,9 +1,10 @@
 ''' Helper functions to check and send HTML5, Telegram and Facebook notifications '''
 import requests, json, os, io
+from dotenv import load_dotenv
 from datetime import datetime
 from pathlib import Path
 from ftplib import FTP
-
+load_dotenv()
 currentPath = str(Path(__file__).parent)+'/'
 
 def notificationSentToday():
