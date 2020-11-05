@@ -181,12 +181,15 @@ def getProvincesData(provincesData, provincesDataYesterday, provincesData30DaysA
         # Don't count out of region/unknown cases
         if province['codice_provincia'] < 879:
             totalCasesYesterday = findObject(provincesDataYesterday, province['codice_provincia'], 'province')['totale_casi']
+            totalCasesToday = province['totale_casi'] - totalCasesYesterday
+            if totalCasesToday < 0:
+                totalCasesToday = 0
             totalCases30DaysAgo = findObject(provincesData30DaysAgo, province['codice_provincia'], 'province')['totale_casi']
             provinces.append({
                 'code': province['codice_provincia'],
                 'name': province['denominazione_provincia'],
                 'totalCases': province['totale_casi'],
-                'totalCasesToday': province['totale_casi'] - totalCasesYesterday,
+                'totalCasesToday': totalCasesToday,
                 'totalCasesLast30Days': province['totale_casi'] - totalCases30DaysAgo
             })
     return provinces
