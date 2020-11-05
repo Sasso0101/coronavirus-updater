@@ -7,20 +7,20 @@ from notifications import *
 
 locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 
-nationalData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv')
+nationalData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv', 'data')
 
 force = isForced()
 if somethingChanged(nationalData) or force:
     print('Something changed. Updating...')
     yesterday = datetime.today() - timedelta(days=1)
     yesterday = yesterday.strftime('%Y%m%d')
-    regionsData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni-latest.csv')
-    regionsDataYesterday = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni-'+yesterday+'.csv')
+    regionsData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni-latest.csv', 'codice_regione')
+    regionsDataYesterday = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-regioni/dpc-covid19-ita-regioni-'+yesterday+'.csv', 'codice_regione')
     daysAgo30 = datetime.today() - timedelta(days=30)
     daysAgo30 = daysAgo30.strftime('%Y%m%d')
-    provincesData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-latest.csv')
-    provincesDataYesterday = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-'+yesterday+'.csv')
-    provincesData30DaysAgo = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-'+daysAgo30+'.csv')
+    provincesData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-latest.csv', 'codice_provincia')
+    provincesDataYesterday = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-'+yesterday+'.csv', 'codice_provincia')
+    provincesData30DaysAgo = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-province/dpc-covid19-ita-province-'+daysAgo30+'.csv', 'codice_provincia')
 
     data = {}
     data['chartNewCases'] = getChartDataNewCases(nationalData)
