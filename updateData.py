@@ -13,6 +13,8 @@ currentPath = str(Path(__file__).parent)+'/'
 def getData(url, duplicatesSubset = False):
     ''' Returns CSV parsed object '''
     decodedCSV = pandas.read_csv(url)
+    
+    # Removes duplicates
     if duplicatesSubset:
         decodedCSV.drop_duplicates(subset = duplicatesSubset, keep = False, inplace = True) 
     decodedCSV = decodedCSV.to_dict('records')
@@ -51,14 +53,8 @@ def getChartDataNewCases(nationalData):
     totalDeathsPreviousDay = 1
     totalTestsPreviousDay = 0
 
-    # Array of alredy processed dates (intruduced to avoid duplicates)
-    # clearedDates = []
     #Fill chart data day by day
     for day in nationalData:
-        # if day['data'] in clearedDates:
-        #     continue
-        # else:
-        #     clearedDates.append(day['data'])
         dataDatetime = datetime.strptime(day['data'], '%Y-%m-%dT%H:%M:%S')
         chart[0].append(dataDatetime.strftime("%d/%m/%Y")) #Date
         chart[1].append(day['nuovi_positivi']) #New active cases
