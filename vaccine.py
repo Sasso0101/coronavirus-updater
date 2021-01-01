@@ -19,11 +19,11 @@ element = WebDriverWait(driver, 20).until(
     )
 vaccinated = 0
 availableVaccines = 0
-for region in range(1, 20):
+for region in range(1, 21):
     vaccinated += int(driver.find_element_by_css_selector(".bodyCells > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(" + str(region) + ")").text.replace('.', ''))
     pass
 vaccinated += int(driver.find_element_by_css_selector(".bodyCells > div > div:nth-child(2) > div:nth-child(1)").text.replace('.', ''))
-for region in range(1, 20):
+for region in range(1, 21):
     availableVaccines += int(driver.find_element_by_css_selector(".bodyCells > div > div:nth-child(1) > div:nth-child(2) > div:nth-child(" + str(region) + ")").text.replace('.', ''))
     pass
 availableVaccines += int(driver.find_element_by_css_selector(".bodyCells > div > div:nth-child(2) > div:nth-child(2)").text.replace('.', ''))
