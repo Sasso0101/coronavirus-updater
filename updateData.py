@@ -216,3 +216,8 @@ def getLatestCommitDatetime():
         rome = timezone('Europe/Rome')
         localized = utc.localize(commits[0].commit.committer.date)
         return localized.astimezone(rome)
+
+def getVaccineData():
+    ''' Returns latest vaccine data in form of array '''
+    vaccineData = requests.get('https://salvatoreandaloro.altervista.org/coronavirus/5G.php')
+    return vaccineData.json()
