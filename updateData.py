@@ -206,11 +206,11 @@ def uploadData(fileName, data):
         ftp.storbinary(f'STOR {fileName}', ftpFile)
     print("File uploaded!")
 
-def getLatestCommitDatetime():
+def getLatestCommitDatetime(repo, path):
     ''' Returns latest commit datetime on andamento-nazionale-latest.csv '''
     g = Github()
-    repo = g.get_repo("pcm-dpc/COVID-19")
-    commits = repo.get_commits(path='dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale-latest.csv')
+    repo = g.get_repo(repo)
+    commits = repo.get_commits(path=path)
     if commits.totalCount:
         utc = timezone('UTC')
         rome = timezone('Europe/Rome')

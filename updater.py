@@ -33,7 +33,7 @@ if somethingChanged(nationalData) or force:
     data['regions'] = getRegionsData(regionsData, regionsDataYesterday)
     data['provinces'] = getProvincesData(provincesData, provincesDataYesterday, provincesData30DaysAgo)
     now = datetime.now()
-    lastCommit = getLatestCommitDatetime()
+    lastCommit = getLatestCommitDatetime('pcm-dpc/COVID-19', 'dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale-latest.csv')
     data['lastUpdated'] = {
         'day': lastCommit.strftime("%d/%m/%Y"),
         'time': lastCommit.strftime("%H:%M")
