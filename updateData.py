@@ -22,7 +22,7 @@ def getData(url, duplicatesSubset = False):
 
 def getLatestTotal(nationalData):
     ''' Returns total of everything from last day for comparison '''
-    return nationalData[-1]['totale_positivi'] + nationalData[-1]['dimessi_guariti'] + nationalData[-1]['deceduti'] + nationalData[-1]['tamponi']
+    return nationalData[-1]['totale_positivi'] + nationalData[-1]['dimessi_guariti'] + nationalData[-1]['deceduti'] + nationalData[-1]['tamponi'] + 1
 
 def somethingChanged(nationalData):
     ''' Checks if downladed latest total is different from saved one
@@ -81,7 +81,7 @@ def getChartActiveCases(nationalData):
         chart[0].append(dataDatetime.strftime("%d/%m/%Y"))
         chart[1].append(day['terapia_intensiva'])
         chart[2].append(day['totale_ospedalizzati'] - day['terapia_intensiva'])
-        chart[3].append(day['isolamento_domiciliare'])
+        chart[3].append(day['isolamento_domiciliare']+1)
     return chart
 
 def getChartCumulativeCases(nationalData):
@@ -98,7 +98,7 @@ def getChartCumulativeCases(nationalData):
         dataDatetime = datetime.strptime(day['data'], '%Y-%m-%dT%H:%M:%S')
         chart[0].append(dataDatetime.strftime("%d/%m/%Y"))
         chart[1].append(day['deceduti'])
-        chart[2].append(day['totale_positivi'])
+        chart[2].append(day['totale_positivi']+1)
         chart[3].append(day['dimessi_guariti'])
     return chart
 
