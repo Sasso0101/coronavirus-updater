@@ -13,16 +13,16 @@ This Docker container updates all data on [coronaviruslive.it](https://coronavir
 ## Build 
 Clone the repository and run the following commands:
 
-    cd container
-    docker build -t coronavirus-updater .
+	cd container
+	docker build -t coronavirus-updater .
 
 ## Deploy 
 Create a file named .env in the project's directory with the following content:
 
-    FTPHOST = "FTP server url"
+	FTPHOST = "FTP server url"
 	FTPUSER = "FTP username"
 	FTPPASSWORD = "FTP password"
-	PUSHAUTH = "Onesignal [Auth key](https://app.onesignal.com/profile)"
+	PUSHAUTH = "Onesignal (Can be found here: https://app.onesignal.com/profile)"
 	PUSHID = "Onesignal API key (Project > Settings > Keys & IDs)"
 	TELEGRAMID = "Telegram bot key"
 	FACEBOOKTOKEN = "Facebook account token"
