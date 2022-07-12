@@ -7,7 +7,7 @@ This Docker container updates [coronaviruslive.it](https://coronaviruslive.it) b
 #### Data sources
 |Data|Source  |
 |--|--|
-| 🦠 Covid | https://github.com/pcm-dpc/COVID-19 |
+| 🦠 Covid-19 | https://github.com/pcm-dpc/COVID-19 |
 | 💉 Vaccines | https://github.com/italia/covid19-opendata-vaccini |
 
 ## Build 
