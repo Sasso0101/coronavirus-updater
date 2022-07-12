@@ -1,4 +1,33 @@
+
 # Updater for [coronaviruslive.it](https://coronaviruslive.it)
 ![Checking for updates...](https://github.com/Sasso0101/coronavirus-updater/workflows/Checking%20for%20updates.../badge.svg)
 
-Fetches latest data from [Italian Civil protection's repository](https://github.com/pcm-dpc/COVID-19) and updates backend JSON file.
+This Docker container updates all data on [coronaviruslive.it](https://coronaviruslive.it). 
+
+#### Data sources
+|Data|Source  |
+|--|--|
+| 🦠 Covid | https://github.com/pcm-dpc/COVID-19 |
+| 💉 Vaccines | https://github.com/italia/covid19-opendata-vaccini |
+
+## Build 
+Clone the repository and run the following commands:
+
+    cd container
+    docker build -t coronavirus-updater .
+
+## Deploy 
+Create a file named .env in the project's directory with the following content:
+
+    FTPHOST = "FTP server url"
+	FTPUSER = "FTP username"
+	FTPPASSWORD = "FTP password"
+	PUSHAUTH = "Onesignal [Auth key](https://app.onesignal.com/profile)"
+	PUSHID = "Onesignal API key (Project > Settings > Keys & IDs)"
+	TELEGRAMID = "Telegram bot key"
+	FACEBOOKTOKEN = "Facebook account token"
+	FACEBOOKID = "Facebook page ID"
+
+Run the following commands:
+
+    docker-compose up -d
