@@ -1,0 +1,5 @@
+requests==2.24.0
+pandas
+PyGithub==1.53
+pytz==2020.1
+python-dotenv

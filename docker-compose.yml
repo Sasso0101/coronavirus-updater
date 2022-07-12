@@ -1,0 +1,8 @@
+version: "3.3"
+services:
+  coronavirus-updater:
+    image: coronavirus-updater
+    container_name: coronavirus-updater
+    volumes:
+      - ./.env:/app/.env
+    restart: always

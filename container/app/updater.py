@@ -9,8 +9,7 @@ locale.setlocale(locale.LC_ALL, 'it_IT.UTF-8')
 
 nationalData = getData('https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv', 'data')
 
-force = isForced()
-if somethingChanged(nationalData) or force:
+if somethingChanged(nationalData) or isForced():
     print('Something changed. Updating...')
     yesterday = datetime.today() - timedelta(days=1)
     yesterday = yesterday.strftime('%Y%m%d')
@@ -41,7 +40,7 @@ if somethingChanged(nationalData) or force:
     data['id'] = time.time()
     uploadData("coronavirus/datiV6.php", json.dumps(data))
 
-    if not notificationSentToday():
+    if not notificationSentToday() and not noNotifications():
         vaccineData = getVaccineData()
         pushTitle = "Aggiornamento casi coronavirus"
         pushMessage = "I dati sull'andamento del contagio sono stati aggiornati. Premi per tutte le informazioni."

@@ -2,11 +2,11 @@
 
 import pandas, os, io, requests
 from datetime import datetime
-from dotenv import load_dotenv
 from pathlib import Path
 from ftplib import FTP
 from github import Github
 from pytz import timezone
+from dotenv import load_dotenv
 load_dotenv()
 currentPath = str(Path(__file__).parent)+'/'
 
@@ -33,7 +33,7 @@ def somethingChanged(nationalData):
     if latestTotal == latestSavedTotal: return False
     else:
         print('Total: ' + str(latestTotal))
-        with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp:
+        with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD'], encoding = 'Latin-1') as ftp:
             ftpFile = io.BytesIO(str(latestTotal).encode("utf-8"))
             ftp.storbinary(f'STOR {"coronavirus/latestTotal.txt"}', ftpFile)
         return True
@@ -201,7 +201,7 @@ def getProvincesData(provincesData, provincesDataYesterday, provincesData30DaysA
 def uploadData(fileName, data):
     ''' Creates dummy file with php header and JSON data and uploads it to remote server via FTP '''
     data = '<?php header("Access-Control-Allow-Origin: *");header("Content-Type: application/json");?>' + data
-    with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD']) as ftp:
+    with FTP(os.environ['FTPHOST'], os.environ['FTPUSER'], os.environ['FTPPASSWORD'], encoding = 'Latin-1') as ftp:
         ftpFile = io.BytesIO(data.encode('utf-8'))
         ftp.storbinary(f'STOR {fileName}', ftpFile)
     print("File uploaded!")
