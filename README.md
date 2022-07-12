@@ -2,7 +2,7 @@
 # Updater for [coronaviruslive.it](https://coronaviruslive.it)
 ![Checking for updates...](https://github.com/Sasso0101/coronavirus-updater/workflows/Checking%20for%20updates.../badge.svg)
 
-This Docker container updates all data on [coronaviruslive.it](https://coronaviruslive.it). 
+This Docker container updates [coronaviruslive.it](https://coronaviruslive.it) by checking data sources every 5 minutes.
 
 #### Data sources
 |Data|Source  |
