@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   coronavirus-updater:
-    image: coronavirus-updater
+    image: ghcr.io/sasso0101/coronavirus-updater:latest
     container_name: coronavirus-updater
     volumes:
       - ./.env:/app/.env
