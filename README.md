@@ -1,6 +1,6 @@
 
 # Updater for [coronaviruslive.it](https://coronaviruslive.it)
-![Checking for updates...](https://github.com/Sasso0101/coronavirus-updater/workflows/Checking%20for%20updates.../badge.svg)
+[![Docker](https://github.com/Sasso0101/coronavirus-updater/actions/workflows/docker-publish.yml/badge.svg?branch=master)](https://github.com/Sasso0101/coronavirus-updater/actions/workflows/docker-publish.yml)
 
 This Docker container updates [coronaviruslive.it](https://coronaviruslive.it) by checking data sources every 5 minutes.
 
